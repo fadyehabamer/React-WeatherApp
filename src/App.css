@@ -1,0 +1,48 @@
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #355a69; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b7994; 
+}
+
+body{
+  overflow-x: hidden !important;
+}
+#root{
+  width:100vw;
+  min-height:100vh;
+  background-image: url(./assets/bck.jpg);
+  background-size: cover;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+form,.weather{
+  background-color:#fff;
+  padding: 35px 30px;
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.weather{
+  gap: 10px;
+}
+.weather li{
+  padding-left: 0!important;
+}
+
+
