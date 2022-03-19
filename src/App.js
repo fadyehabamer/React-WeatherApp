@@ -13,7 +13,8 @@ export default class App extends Component {
     temp: '',
     city: '',
     humidity: '',
-    describtion: ''
+    describtion: '',
+    code: ''
   }
 
   getWeather = async (e) => {
@@ -23,18 +24,20 @@ export default class App extends Component {
     // console.log(country , city);
     const ApiData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}%2C${country}&appid=93f2fce913853464e6211aafd3aa5678`);
     const ApiDataJson = await ApiData.json()
-    console.log(ApiDataJson.weather[0].main);
+    console.log(ApiDataJson.cod);
 
-
-    if (country && city) {
-      this.setState({
-        temp: ApiDataJson.main.temp,
-        city: ApiDataJson.name,
-        humidity: ApiDataJson.main.humidity,
-        type: ApiDataJson.weather[0].main
-
-      })
-    } else {
+    if (ApiDataJson.cod === 200) {
+      if (country && city) {
+        this.setState({
+          temp: ApiDataJson.main.temp,
+          city: ApiDataJson.name,
+          humidity: ApiDataJson.main.humidity,
+          type: ApiDataJson.weather[0].main,
+          cod: ApiDataJson.cod
+        })
+      }
+    }
+    else {
       const MySwal = withReactContent(Swal)
       MySwal.fire({
         didOpen: () => {
