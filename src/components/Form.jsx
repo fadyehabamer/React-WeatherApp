@@ -5,14 +5,14 @@ export default function Form(props) {
   // console.log(props)
   return (
     <form onSubmit={props.getWeather}>
-      <TextField id="outlined-basic" label="Country" variant="outlined"
+      <TextField id="country" label="Country (optional)" variant="outlined"
         inputProps={{
           autoComplete: "off",
           name: "country",
           
         }} />
       {/* =============================================== */}
-      <TextField id="outlined-basic" label="City" variant="outlined" required
+      <TextField id="city" label="City" variant="outlined" required
         inputProps={{
           autoComplete: "off",
           name: "city",

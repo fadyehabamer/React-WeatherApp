@@ -13,7 +13,7 @@ export default function Weather(props) {
   const { city, temp, humidity, type } = props
   return (
 
-    <div className='weather'>
+    <div className='weather' aria-live='polite'>
       <h2>
         Data Searched
       </h2>
