@@ -33,7 +33,7 @@ export default function Weather(props) {
           }
 
 
-          {temp &&
+          {temp != null &&
 
             <ListItem>
               <ListItemAvatar>
@@ -41,11 +41,11 @@ export default function Weather(props) {
                   <ThermostatIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Temprature" secondary={`${Math.round(temp)} °C`} />
+              <ListItemText primary="Temperature" secondary={`${Math.round(temp)} °C`} />
             </ListItem>
           }
 
-          {humidity &&
+          {humidity != null &&
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
@@ -64,7 +64,7 @@ export default function Weather(props) {
                   <WbSunnyIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="description" secondary={type} />
+              <ListItemText primary="Description" secondary={type} />
             </ListItem>
           }
 

@@ -18,11 +18,10 @@ const showError = (text) => Swal.fire({ icon: 'error', title: 'Search failed', t
 export default class App extends Component {
 
   state = {
-    temp: '',
+    temp: null,
     city: '',
-    humidity: '',
-    describtion: '',
-    code: ''
+    humidity: null,
+    type: ''
   }
 
   getWeather = async (e) => {
@@ -55,8 +54,7 @@ export default class App extends Component {
         temp: data.main.temp,
         city: data.name,
         humidity: data.main.humidity,
-        type: data.weather[0].main,
-        cod: data.cod
+        type: data.weather[0].main
       })
     } else if (response.status === 404) {
       showError(`No weather data found for "${[city, country].filter(Boolean).join(', ')}". Check the spelling of the city and country.`)
