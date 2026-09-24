@@ -12,7 +12,7 @@ export default function Form(props) {
           
         }} />
       {/* =============================================== */}
-      <TextField id="outlined-basic" label="City" variant="outlined"
+      <TextField id="outlined-basic" label="City" variant="outlined" required
         inputProps={{
           autoComplete: "off",
           name: "city",

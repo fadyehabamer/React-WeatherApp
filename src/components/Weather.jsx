@@ -41,7 +41,7 @@ export default function Weather(props) {
                   <ThermostatIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Temprature" secondary={temp} />
+              <ListItemText primary="Temprature" secondary={`${Math.round(temp)} °C`} />
             </ListItem>
           }
 
@@ -52,7 +52,7 @@ export default function Weather(props) {
                   <OpacityIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Humidity" secondary={humidity} />
+              <ListItemText primary="Humidity" secondary={`${humidity}%`} />
             </ListItem>
           }
 

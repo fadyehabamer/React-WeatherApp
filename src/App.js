@@ -25,23 +25,26 @@ export default class App extends Component {
 
   getWeather = async (e) => {
     e.preventDefault();
-    const country = e.target.elements.country.value
-    const city = e.target.elements.city.value
-    // console.log(country , city);
-    const ApiData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}%2C${country}&appid=${API_KEY}`);
+    const country = e.target.elements.country.value.trim()
+    const city = e.target.elements.city.value.trim()
+    if (!city) return
+    // country is optional: "q=London" and "q=London,GB" are both valid
+    const params = new URLSearchParams({
+      q: [city, country].filter(Boolean).join(','),
+      units: 'metric',
+      appid: API_KEY
+    })
+    const ApiData = await fetch(`https://api.openweathermap.org/data/2.5/weather?${params}`);
     const ApiDataJson = await ApiData.json()
-    console.log(ApiDataJson.cod);
 
     if (ApiDataJson.cod === 200) {
-      if (country && city) {
-        this.setState({
-          temp: ApiDataJson.main.temp,
-          city: ApiDataJson.name,
-          humidity: ApiDataJson.main.humidity,
-          type: ApiDataJson.weather[0].main,
-          cod: ApiDataJson.cod
-        })
-      }
+      this.setState({
+        temp: ApiDataJson.main.temp,
+        city: ApiDataJson.name,
+        humidity: ApiDataJson.main.humidity,
+        type: ApiDataJson.weather[0].main,
+        cod: ApiDataJson.cod
+      })
     }
     else {
       const MySwal = withReactContent(Swal)
