@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 
 import Form from './components/Form'
 import Weather from './components/Weather'
@@ -12,6 +11,9 @@ import './App.css'
 // Anything bundled into a front-end app is visible to users, so restrict
 // and rotate this key in the OpenWeatherMap dashboard.
 const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY
+
+// `text` (not `html`) so user input in the message is never parsed as HTML
+const showError = (text) => Swal.fire({ icon: 'error', title: 'Search failed', text })
 
 export default class App extends Component {
 
@@ -34,28 +36,36 @@ export default class App extends Component {
       units: 'metric',
       appid: API_KEY
     })
-    const ApiData = await fetch(`https://api.openweathermap.org/data/2.5/weather?${params}`);
-    const ApiDataJson = await ApiData.json()
-
-    if (ApiDataJson.cod === 200) {
-      this.setState({
-        temp: ApiDataJson.main.temp,
-        city: ApiDataJson.name,
-        humidity: ApiDataJson.main.humidity,
-        type: ApiDataJson.weather[0].main,
-        cod: ApiDataJson.cod
-      })
+    if (!API_KEY) {
+      showError('The app is missing its OpenWeatherMap API key (REACT_APP_OPENWEATHER_API_KEY).')
+      return
     }
-    else {
-      const MySwal = withReactContent(Swal)
-      MySwal.fire({
-        didOpen: () => {
-          MySwal.clickConfirm()
-        }
+
+    let response, data
+    try {
+      response = await fetch(`https://api.openweathermap.org/data/2.5/weather?${params}`)
+      data = await response.json()
+    } catch {
+      showError('Could not reach the weather service. Check your connection and try again.')
+      return
+    }
+
+    if (response.ok && data.main && data.weather && data.weather.length) {
+      this.setState({
+        temp: data.main.temp,
+        city: data.name,
+        humidity: data.main.humidity,
+        type: data.weather[0].main,
+        cod: data.cod
       })
-        .then(() => {
-          return MySwal.fire(`<p> How to Search with Invalid Inputs, HA ?</p>`)
-        })
+    } else if (response.status === 404) {
+      showError(`No weather data found for "${[city, country].filter(Boolean).join(', ')}". Check the spelling of the city and country.`)
+    } else if (response.status === 401) {
+      showError('The weather service rejected the API key.')
+    } else if (response.status === 429) {
+      showError('Too many requests. Please wait a minute and try again.')
+    } else {
+      showError((data && data.message) || `Weather service error (HTTP ${response.status}).`)
     }
   }
 
