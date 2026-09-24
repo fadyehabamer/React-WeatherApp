@@ -13,7 +13,7 @@ export default function Weather(props) {
   const { city, temp, humidity, type } = props
   return (
 
-    <div className='weather'>
+    <div className='weather' aria-live='polite'>
       <h2>
         Data Searched
       </h2>
@@ -33,7 +33,7 @@ export default function Weather(props) {
           }
 
 
-          {temp &&
+          {temp != null &&
 
             <ListItem>
               <ListItemAvatar>
@@ -41,18 +41,18 @@ export default function Weather(props) {
                   <ThermostatIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Temprature" secondary={temp} />
+              <ListItemText primary="Temperature" secondary={`${Math.round(temp)} °C`} />
             </ListItem>
           }
 
-          {humidity &&
+          {humidity != null &&
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
                   <OpacityIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Humidity" secondary={humidity} />
+              <ListItemText primary="Humidity" secondary={`${humidity}%`} />
             </ListItem>
           }
 
@@ -64,7 +64,7 @@ export default function Weather(props) {
                   <WbSunnyIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="description" secondary={type} />
+              <ListItemText primary="Description" secondary={type} />
             </ListItem>
           }
 
