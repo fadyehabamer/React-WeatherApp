@@ -7,6 +7,12 @@ import Form from './components/Form'
 import Weather from './components/Weather'
 
 import './App.css'
+
+// OpenWeatherMap key, injected at build time from .env (see .env.example).
+// Anything bundled into a front-end app is visible to users, so restrict
+// and rotate this key in the OpenWeatherMap dashboard.
+const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY
+
 export default class App extends Component {
 
   state = {
@@ -22,7 +28,7 @@ export default class App extends Component {
     const country = e.target.elements.country.value
     const city = e.target.elements.city.value
     // console.log(country , city);
-    const ApiData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}%2C${country}&appid=93f2fce913853464e6211aafd3aa5678`);
+    const ApiData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}%2C${country}&appid=${API_KEY}`);
     const ApiDataJson = await ApiData.json()
     console.log(ApiDataJson.cod);
 
