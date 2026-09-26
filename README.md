@@ -6,6 +6,8 @@
 
 # React Weather App
 
+[![CI](https://github.com/fadyehabamer/React-WeatherApp/actions/workflows/ci.yml/badge.svg)](https://github.com/fadyehabamer/React-WeatherApp/actions/workflows/ci.yml)
+
 Search the current weather for any city (and, optionally, its country) using the [OpenWeatherMap Current Weather API](https://openweathermap.org/current). Built with Create React App, MUI and SweetAlert2.
 
 Live demo: https://react-weatherapp-fea.vercel.app/
